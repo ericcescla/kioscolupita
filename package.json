@@ -1,0 +1,11 @@
+{
+  "name": "kiosco-lupita",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Administración y consulta de precios para Kiosco Lupita",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "build": "npm run build --prefix backend && npm run build --prefix frontend"
+  },
+  "devDependencies": { "concurrently": "^9.1.2" }
+}
