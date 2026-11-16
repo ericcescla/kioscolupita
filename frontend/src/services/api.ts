@@ -1,7 +1,13 @@
 import axios from 'axios';
 import type { Producto, ProductoInput } from '../types/producto';
 
-const api = axios.create({ baseURL: import.meta.env.URL || 'http://localhost:4000/api', headers: { 'Content-Type': 'application/json' } });
+const apiUrl = __BACKEND_URL__;
+
+if (!apiUrl) {
+  throw new Error('Falta configurar BACKEND_URL en el entorno del frontend.');
+}
+
+const api = axios.create({ baseURL: apiUrl, headers: { 'Content-Type': 'application/json' } });
 export const productoService = {
   async listar(params?: { q?: string; categoria?: string }): Promise<Producto[]> {
     const { data } = await api.get<{ data: Producto[] }>('/productos', { params });

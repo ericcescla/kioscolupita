@@ -13,7 +13,7 @@ Los puntos de mayor atención son la autorización: varias rutas protegidas solo
 ## Arquitectura y recorrido
 
 ```text
-React/Vite → Axios (VITE_API_URL) → Express /api → controladores → Sequelize → PostgreSQL
+React → Axios (BACKEND_URL) → Express /api → controladores → Sequelize → PostgreSQL
 ```
 
 1. `AuthContext` inicia sesión contra `/api/auth/login` y guarda token y usuario en `localStorage`.
@@ -73,7 +73,7 @@ El dashboard calcula sus métricas en el cliente a partir de listas cargadas des
 1. **Token persistido en `localStorage`.** Es sencillo de implementar, pero cualquier script ejecutado en el mismo origen podría leerlo. Para un sistema expuesto, evaluar cookie `HttpOnly`, `Secure` y `SameSite`, junto con protección CSRF según el diseño.
 2. **No se valida sesión al restaurarla.** Al recargar, `AuthContext` confía en el token y usuario almacenados hasta que una llamada falle. No hay una operación de perfil/renovación que confirme el token antes de mostrar la sesión.
 3. **El interceptor solo trata 401.** El backend también responde 403 cuando el token es inválido/expiró, por lo que el frontend puede dejar datos de sesión obsoletos en ese caso.
-4. **`VITE_API_URL` sin valor alternativo.** Si no está definida en el entorno de compilación, Axios recibirá una base URL vacía/indefinida y las llamadas pueden apuntar a rutas del frontend. Conviene validar la configuración al iniciar o documentar el `.env` requerido.
+4. **`BACKEND_URL` requerida.** El frontend valida la configuración de la URL de API al iniciar; debe definirse en el entorno de compilación.
 5. **Errores de carga poco visibles.** Dashboard e historial docente escriben errores en consola; en algunos casos el usuario puede quedar con una lista vacía sin explicación. Sería mejor mostrar estados de error y ofrecer reintento.
 6. **Métricas y datos dependen de listas completas.** La solución es simple para volúmenes pequeños, pero filtros y agregaciones deberían pasar al servidor si crece el inventario.
 7. **Servicios con funciones que parecen no respaldadas.** Por ejemplo, `equipoService.getById` y varios `getById` del cliente llaman rutas individuales que no se observan registradas para esos recursos. Revisar y alinear cliente con API.
