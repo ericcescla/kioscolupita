@@ -1,4 +1,5 @@
-import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import type { FormEvent } from 'react';
 import { ArrowDown, CalendarDays, Check, Heart, LoaderCircle, Pencil, Plus, Search, ShoppingBag, Trash2, X } from 'lucide-react';
 import { errorMessage, productoService } from './services/api';
 import type { Producto, ProductoInput } from './types/producto';
