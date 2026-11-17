@@ -11,7 +11,7 @@ Aplicación web para consultar, cargar y actualizar precios de productos. Está 
 
 1. Crear una base PostgreSQL vacía, por ejemplo `kiosco_lupita`.
 2. Copiar `backend/.env.example` a `backend/.env` y definir `DATABASE_URL` con usuario, contraseña, host, puerto y base correctos. Ejemplo: `postgres://postgres:clave@localhost:5432/kiosco_lupita`.
-3. Opcionalmente cambiar `DB_SSL`, `PORT` y `ALLOWED_ORIGINS`. En producción, `ALLOWED_ORIGINS` debe contener el origen exacto del frontend, por ejemplo `https://kiosco.ericescalante.dev`; para desarrollo local se permite `http://localhost:5173` automáticamente.
+3. Opcionalmente cambiar `DB_SSL`, `PORT` y `FRONTEND_URL`. En producción, `FRONTEND_URL` debe contener el origen exacto del frontend, por ejemplo `https://kiosco.ericescalante.dev`; para desarrollo local se permite `http://localhost:5173` automáticamente.
 
 4. Ejecutar `npm run db:migrate --prefix backend` para crear la tabla `productos`. El backend no modifica el esquema al arrancar; las migraciones SQL son explícitas y versionadas. El script de reversión es `backend/migrations/001-create-productos.down.sql`.
 
@@ -21,6 +21,6 @@ Desde esta carpeta ejecutar `npm install`, `npm install --prefix backend` y `npm
 
 ## Desplegar el frontend en Vercel
 
-Configurá el directorio raíz del proyecto como `frontend` en Vercel. `frontend/vercel.json` instala sus dependencias, compila a `dist` y reescribe las rutas de la SPA a `index.html`, para que `/precios` y `/agregar-producto` funcionen al abrirse directamente. Configurá la variable `BACKEND_URL` en Vercel con la URL pública de la API antes del build. En el backend, definí `ALLOWED_ORIGINS=https://kiosco.ericescalante.dev`. El backend debe desplegarse y configurarse por separado.
+Configurá el directorio raíz del proyecto como `frontend` en Vercel. `frontend/vercel.json` instala sus dependencias, compila a `dist` y reescribe las rutas de la SPA a `index.html`, para que `/precios` y `/agregar-producto` funcionen al abrirse directamente. Configurá la variable `BACKEND_URL` en Vercel con la URL pública de la API antes del build. En el hosting del backend, definí `FRONTEND_URL=https://kiosco.ericescalante.dev`. El backend debe desplegarse y configurarse por separado.
 
 Endpoints: `GET /api/health`, `GET /api/productos`, `GET /api/productos/:id`, `POST /api/productos`, `PUT /api/productos/:id` y `DELETE /api/productos/:id`. La API está abierta para facilitar el uso inicial; antes de exponerla públicamente, añadir autenticación y autorización a las rutas de escritura.
