@@ -21,6 +21,6 @@ Desde esta carpeta ejecutar `npm install`, `npm install --prefix backend` y `npm
 
 ## Desplegar el frontend en Vercel
 
-Importá el repositorio en Vercel con la carpeta raíz del proyecto. `vercel.json` instala y compila el frontend y reescribe las rutas de la SPA a `index.html`, para que `/precios` y `/agregar-producto` funcionen al abrirse directamente. Configurá la variable `BACKEND_URL` en Vercel con la URL pública de la API antes del build. El backend debe desplegarse y configurarse por separado.
+Configurá el directorio raíz del proyecto como `frontend` en Vercel. Los comandos de `vercel.json` son relativos a ese directorio: instalan sus dependencias, compilan a `dist` y reescriben las rutas de la SPA a `index.html`, para que `/precios` y `/agregar-producto` funcionen al abrirse directamente. Configurá la variable `BACKEND_URL` en Vercel con la URL pública de la API antes del build. El backend debe desplegarse y configurarse por separado.
 
 Endpoints: `GET /api/health`, `GET /api/productos`, `GET /api/productos/:id`, `POST /api/productos`, `PUT /api/productos/:id` y `DELETE /api/productos/:id`. La API está abierta para facilitar el uso inicial; antes de exponerla públicamente, añadir autenticación y autorización a las rutas de escritura.
