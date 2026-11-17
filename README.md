@@ -11,7 +11,7 @@ Aplicación web para consultar, cargar y actualizar precios de productos. Está 
 
 1. Crear una base PostgreSQL vacía, por ejemplo `kiosco_lupita`.
 2. Copiar `backend/.env.example` a `backend/.env` y definir `DATABASE_URL` con usuario, contraseña, host, puerto y base correctos. Ejemplo: `postgres://postgres:clave@localhost:5432/kiosco_lupita`.
-3. Opcionalmente cambiar `DB_SSL`, `PORT` y `FRONTEND_URL`.
+3. Opcionalmente cambiar `DB_SSL` y `PORT`.
 
 4. Ejecutar `npm run db:migrate --prefix backend` para crear la tabla `productos`. El backend no modifica el esquema al arrancar; las migraciones SQL son explícitas y versionadas. El script de reversión es `backend/migrations/001-create-productos.down.sql`.
 

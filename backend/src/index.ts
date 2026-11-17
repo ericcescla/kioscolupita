@@ -1,14 +1,9 @@
 import "dotenv/config";
-import cors from "cors";
 import express, { NextFunction, Request, Response } from "express";
 import { sequelize } from "./config/database";
 import { productoRoutes } from "./routes/productoRoutes";
 
 const app = express();
-const allowedOrigins = (process.env.FRONTEND_URL || "http://localhost:5173")
-  .split(",")
-  .map((origin) => origin.trim());
-app.use(cors({ origin: allowedOrigins }));
 app.use(express.json({ limit: "1mb" }));
 app.get("/api/health", async (_req, res) => {
   try {

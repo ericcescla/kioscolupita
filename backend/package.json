@@ -10,16 +10,13 @@
     "db:migrate:undo": "tsx src/database/migrate.ts undo"
   },
   "dependencies": {
-    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.37.5",
     "sequelize": "^6.37.5"
   },
   "devDependencies": {
-    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.2",
     "tsx": "^4.19.2",
