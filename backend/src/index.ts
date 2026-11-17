@@ -1,9 +1,23 @@
 import "dotenv/config";
+import cors from "cors";
 import express, { NextFunction, Request, Response } from "express";
 import { sequelize } from "./config/database";
 import { productoRoutes } from "./routes/productoRoutes";
 
 const app = express();
+const configuredOrigins = (process.env.ALLOWED_ORIGINS || "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+const allowedOrigins = process.env.NODE_ENV === "production"
+  ? configuredOrigins
+  : [...new Set(["http://localhost:5173", ...configuredOrigins])];
+
+app.use(cors({
+  origin: (origin, callback) => callback(null, !origin || allowedOrigins.includes(origin)),
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
 app.use(express.json({ limit: "1mb" }));
 app.get("/api/health", async (_req, res) => {
   try {
