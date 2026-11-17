@@ -12,10 +12,10 @@ function AppLayout() {
 
   return <>
     <header className="topbar">
-      <NavLink className="brand" to="/precios" aria-label="Kiosco Lupita, lista de precios">kiosco lupita</NavLink>
+      <NavLink className="brand" to="/precios" aria-label="Kiosco Lupita, Lista de precios">Kiosco Lupita</NavLink>
       <nav aria-label="Navegación principal">
-        <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} to="/precios">lista de precios</NavLink>
-        <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} to="/agregar-producto">agregar producto</NavLink>
+        <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} to="/precios">Lista de precios</NavLink>
+        <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} to="/agregar-producto">Agregar producto</NavLink>
       </nav>
     </header>
     <Outlet />
