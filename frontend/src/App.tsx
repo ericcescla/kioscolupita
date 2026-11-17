@@ -1,18 +1,35 @@
-import ListaPrecios from './pages/ListaPrecios';
+import { useEffect } from 'react';
+import { Navigate, NavLink, Outlet, Route, Routes, useLocation } from 'react-router-dom';
 import AgregarProducto from './pages/AgregarProducto';
+import ListaPrecios from './pages/ListaPrecios';
 
-export default function App() {
-  const isAddPage = window.location.pathname.replace(/\/+$/, '') === '/agregar-producto';
+function AppLayout() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [pathname]);
 
   return <>
     <header className="topbar">
-      <a className="brand" href="/precios" aria-label="Kiosco Lupita, lista de precios">kiosco lupita</a>
+      <NavLink className="brand" to="/precios" aria-label="Kiosco Lupita, lista de precios">kiosco lupita</NavLink>
       <nav aria-label="Navegación principal">
-        <a className={`nav-link ${!isAddPage ? 'active' : ''}`} href="/precios">lista de precios</a>
-        <a className={`nav-link ${isAddPage ? 'active' : ''}`} href="/agregar-producto">agregar producto</a>
+        <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} to="/precios">lista de precios</NavLink>
+        <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`} to="/agregar-producto">agregar producto</NavLink>
       </nav>
     </header>
-    {isAddPage ? <AgregarProducto /> : <ListaPrecios />}
+    <Outlet />
   </>;
+}
+
+export default function App() {
+  return <Routes>
+    <Route element={<AppLayout />}>
+      <Route index element={<Navigate to="/precios" replace />} />
+      <Route path="precios" element={<ListaPrecios />} />
+      <Route path="agregar-producto" element={<AgregarProducto />} />
+      <Route path="*" element={<Navigate to="/precios" replace />} />
+    </Route>
+  </Routes>;
 }
 
